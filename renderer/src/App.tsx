@@ -71,7 +71,7 @@ function App() {
 
   return (
     <>
-      <div className={`title-bar ${showNavbar ? '' : 'hidden'}`}>
+      <div className={`title-bar ${showNavbar ? 'hidden' : 'hidden'}`}>
         <div className="title-bar-title"><img src="./vite.svg" alt="logo" /><p>和平解放西藏</p></div>
         <div className="title-bar-buttons">
           <img

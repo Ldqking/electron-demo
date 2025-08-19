@@ -97,7 +97,7 @@ const ViewVideo = ({ onClose }: { onClose: () => void }) => {
             ref={videoRef}
             src={VIDEO_URL} 
             className="video-player"
-            controls={true}
+            controls={false}
             autoPlay
             playsInline
           />

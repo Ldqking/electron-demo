@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^24.3.0",
     "cross-env": "^10.0.0",
     "electron": "37.2.6",
     "electron-builder": "^24.6.4"
@@ -26,6 +27,7 @@
       "buildResources": "build",
       "output": "dist_electron"
     },
+    "asar": true,
     "win": {
       "target": [
         {
@@ -46,27 +48,16 @@
       "uninstallerIcon": "build/icon.ico"
     },
     "files": [
-      "!dist_electron/**/*",
-      "!node_modules/**/*",
-      {
-        "from": ".",
-        "to": "source",
-        "filter": [
-          "**/*",
-          "!node_modules/**/*",
-          "!dist_electron/**/*",
-          "!renderer/node_modules/**/*",
-          "!renderer/dist/**/*",
-          "!renderer/src/**/*"
-        ]
-      },
-      {
-        "from": "node_modules",
-        "to": "source/node_modules"
-      },
+      "main.js",
+      "package.json",
       {
         "from": "renderer/dist",
-        "to": "source/renderer/dist"
+        "to": "renderer/dist"
+      },
+      {
+        "from": "build",
+        "to": "build",
+        "filter": ["**/*"]
       }
     ]
   },
