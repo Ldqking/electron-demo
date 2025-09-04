@@ -1,0 +1,71 @@
+{
+  "name": "electron-demo",
+  "version": "1.0.0",
+  "description": "electron demo",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "concurrently --kill-others-on-fail \"npm run dev:renderer\" \"npm run dev:main\" ",
+    "dev:main": "wait-on tcp:5173 && electron .",
+    "dev:renderer": "cd renderer && npm run dev",
+    "build:renderer": "cd renderer && npm run build",
+    "dist": "npm run build:renderer && electron-builder"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "ansi-regex": "^6.2.0",
+    "cross-env": "^10.0.0",
+    "electron": "37.2.6",
+    "electron-builder": "^24.6.4"
+  },
+  "build": {
+    "appId": "com.example.electron-demo",
+    "productName": "electron-demo",
+    "directories": {
+      "buildResources": "build",
+      "output": "dist_electron"
+    },
+    "asar": true,
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "${productName}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico"
+    },
+    "files": [
+      "main.js",
+      "package.json",
+      {
+        "from": "renderer/dist",
+        "to": "renderer/dist"
+      },
+      {
+        "from": "build",
+        "to": "build",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ]
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "wait-on": "^8.0.4"
+  }
+}
