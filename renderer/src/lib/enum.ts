@@ -1,0 +1,60 @@
+export const IMGS_OF_BEFORE = [
+  './img/before/b_00.jpg',
+  './img/before/b_01.jpg',
+  './img/before/b_02.jpg',
+  './img/before/b_03.jpg',
+  './img/before/b_04.jpg',
+  './img/before/b_05.jpg',
+  './img/before/b_06.jpg',
+  './img/before/b_07.jpg',
+]
+
+export const IMGS_OF_AFTER = [
+  './img/after/a_00.jpg',
+  './img/after/a_01.jpg',
+  './img/after/a_02.jpg',
+  './img/after/a_03.jpg',
+  './img/after/a_04.jpg',
+  './img/after/a_05.jpg',
+  './img/after/a_06.jpg',
+  './img/after/a_07.jpg',
+  './img/after/a_08.jpg',
+  './img/after/a_09.jpg',
+  './img/after/a_10.jpg',
+  './img/after/a_11.jpg',
+  './img/after/a_12.jpg',
+  './img/after/a_13.jpg',
+]
+
+export const IMGS_OF_FIRST = [
+  './img/first/f_00.jpg',
+  './img/first/f_01.jpg',
+  './img/first/f_02.jpg',
+  './img/first/f_03.jpg',
+  './img/first/f_04.jpg',
+  './img/first/f_05.jpg',
+  './img/first/f_06.jpg',
+  './img/first/f_07.jpg',
+  './img/first/f_08.jpg',
+  './img/first/f_09.jpg',
+  './img/first/f_10.jpg',
+  './img/first/f_11.jpg',
+  './img/first/f_12.jpg',
+  './img/first/f_13.jpg',
+  './img/first/f_14.jpg',
+  './img/first/f_15.jpg',
+  './img/first/f_16.jpg',
+  './img/first/f_17.jpg',
+  './img/first/f_18.jpg',
+]
+
+export const IMGS_OF_SECOND = [
+  './img/second/s_00.jpg',
+  './img/second/s_01.jpg',
+  './img/second/s_02.jpg',
+  './img/second/s_03.jpg',
+  './img/second/s_04.jpg',
+  './img/second/s_05.jpg',
+  './img/second/s_06.jpg',
+  './img/second/s_07.jpg',
+]
