@@ -7,21 +7,62 @@
   text-align: center;
 }
 
+.app-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.video-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left center;
+  z-index: -1;
+}
+
+
 .app {
+  position: relative;
   width: 100%;
   height: 100%;
   display: flex;
+  /* padding: 0 5%; */
   align-items: center;
-  justify-content: space-around;
+  justify-content: start;
+  gap: 10%;
+  margin-left: 15%;
+}
+
+.btn-video {
+  position: absolute;
+  border-radius: 5px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: scale(1.01);
+  object-fit: cover;
+  object-position: center;
 }
 
 .btn {
-  width: 38%;
-  aspect-ratio: 128/72;
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: transparent;
+  width: 35%;
+  aspect-ratio: 906/442;
   margin-top: -10vh;
   cursor: pointer;
   pointer-events: all;
-  transition: all 0.2s ease-in-out; /* 添加过渡效果 */
+  /* 添加过渡效果 */
+  transition: all 0.2s ease-in-out;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* 仅在支持 hover 的设备上应用 hover 效果 */
@@ -29,11 +70,11 @@
   .btn:hover {
     transform: scale(0.99);
   }
-  
+
   .nav-button:hover {
     transform: scale(0.95);
   }
-  
+
   .close:hover {
     transform: scale(0.95);
   }
@@ -45,7 +86,8 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.9); /* 半透明灰色蒙版 */
+  background-color: rgba(0, 0, 0, 0.9);
+  /* 半透明灰色蒙版 */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -80,7 +122,8 @@
   cursor: pointer;
   pointer-events: all;
   user-select: none;
-  transition: all 0.2s ease-in-out; /* 添加过渡效果 */
+  transition: all 0.2s ease-in-out;
+  /* 添加过渡效果 */
 }
 
 .nav-button.disabled {
@@ -89,18 +132,20 @@
 }
 
 .close {
-  position: absolute;
+  position: fixed;
   top: 5vh;
   right: 2vw;
   width: 3vw;
   height: 3vw;
   z-index: 999;
   cursor: pointer;
-  transition: all 0.2s ease-in-out; /* 添加过渡效果 */
+  transition: all 0.2s ease-in-out;
+  /* 添加过渡效果 */
 }
 
 /* 触摸设备上的 active 状态 */
 @media (hover: none) {
+
   .btn:active,
   .nav-button:active,
   .close:active {
@@ -143,30 +188,32 @@
   .video-wrapper {
     width: 95vw;
   }
-  
+
   .nav-button {
     width: 8vw;
     height: 8vw;
   }
-  
+
   .close {
     width: 6vw;
     height: 6vw;
   }
 }
 
-/* 在你的 CSS 中添加 */
 .title-bar {
-  position:absolute;
+  position: absolute;
   width: 100%;
-  -webkit-app-region: drag; /* 使该区域可拖拽窗口 */
+  -webkit-app-region: drag;
+  /* 使该区域可拖拽窗口 */
   height: 30px;
   background-color: white;
   color: black;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 9; 
 }
+
 .title-bar-title {
   font-size: 12px;
   display: flex;
@@ -181,7 +228,8 @@
 }
 
 .title-bar-buttons {
-  -webkit-app-region: no-drag; /* 使按钮区域不可拖拽 */
+  -webkit-app-region: no-drag;
+  /* 使按钮区域不可拖拽 */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -191,9 +239,10 @@
 
 .title-bar-buttons img {
   cursor: pointer;
-  width:  12px;
+  width: 12px;
   height: 12px;
 }
+
 /* 第二张图片样式 */
 .title-bar-buttons img:nth-child(3) {
   width: 16px;

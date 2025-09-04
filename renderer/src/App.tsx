@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './App.css'
 import ViewImg from './components/view-img';
 import ViewVideo from './components/view-video';
@@ -22,6 +22,8 @@ function App() {
 
   const [showNavbar, setShowNavbar] = useState(true);
   const [clickTimer, setClickTimer] = useState<any>(null);
+
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   // 点击空白区域显示导航栏
   const handleBackgroundClick = () => {
@@ -91,36 +93,69 @@ function App() {
           />
         </div>
       </div>
-      <div
-        className='app'
-        onClick={handleBackgroundClick}
-        onTouchStart={handleBackgroundClick}
-        style={{ backgroundImage: 'url(./img/bg/bg.png)', backgroundSize: "cover", backgroundPosition: "center" }}>
-        <div
-          onClick={handleViewImg}
-          className='btn'
-          style={{ backgroundImage: 'url(./img/bg/btn1.png)', backgroundSize: "cover", backgroundPosition: "center" }}
-          onTouchStart={(e) => e.stopPropagation()}
-        ></div>
-        <div
-          onClick={handleViewVideo}
-          className='btn'
-          style={{ backgroundImage: 'url(./img/bg/btn2.png)', backgroundSize: "cover", backgroundPosition: "center" }}
-          onTouchStart={(e) => e.stopPropagation()}
-        ></div>
+      <div className="app-container">
+        {/* 视频背景 */}
+        <video
+          ref={videoRef}
+          className="video-background"
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src="./img/bg/bg.mp4" type="video/mp4" />
+          您的浏览器不支持视频背景。
+        </video>
 
-        {showViewImg && <ViewImg />}
-        {showViewVideo && <ViewVideo onClose={handleClose} />}
-
-        {(showViewImg || showViewVideo) && (
+        <div
+          className='app'
+          onClick={handleBackgroundClick}
+          onTouchStart={handleBackgroundClick}
+        >
           <div
-            className='close'
-            onClick={handleClose}
-            onTouchStart={handleCloseTouch}
+            onClick={handleViewImg}
+            className='btn'
+            onTouchStart={(e) => e.stopPropagation()}
           >
-            <img style={{ width: '100%', height: '100%' }} src="./img/close.svg" alt="close" />
+            <video
+              className="btn-video"
+              autoPlay
+              loop
+              muted
+              playsInline
+            >
+              <source src="./img/bg/btn1.mp4" type="video/mp4" />
+            </video>
           </div>
-        )}
+          <div
+            onClick={handleViewVideo}
+            className='btn'
+            onTouchStart={(e) => e.stopPropagation()}
+          >
+            <video
+              className="btn-video"
+              autoPlay
+              loop
+              muted
+              playsInline
+            >
+              <source src="./img/bg/btn2.mp4" type="video/mp4" />
+            </video>
+          </div>
+
+          {showViewImg && <ViewImg />}
+          {showViewVideo && <ViewVideo onClose={handleClose} />}
+
+          {(showViewImg || showViewVideo) && (
+            <div
+              className='close'
+              onClick={handleClose}
+              onTouchStart={handleCloseTouch}
+            >
+              <img style={{ width: '100%', height: '100%' }} src="./img/close.svg" alt="close" />
+            </div>
+          )}
+        </div>
       </div>
     </>
   )
