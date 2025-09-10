@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, memo } from "react";
 
 const ViewImg = () => {
   const IMGS = [
@@ -10,6 +10,31 @@ const ViewImg = () => {
   ];
 
   const [imgIndex, setImgIndex] = useState(0);
+  const [currentImage, setCurrentImage] = useState(IMGS[0]);
+  const [preloadedImages, setPreloadedImages] = useState<{[key: string]: boolean}>({});
+
+  // 预加载当前和相邻图片
+  useEffect(() => {
+    const preload = (index: number) => {
+      if (index >= 0 && index < IMGS.length && !preloadedImages[IMGS[index]]) {
+        const img = new Image();
+        img.onload = () => {
+          setPreloadedImages(prev => ({ ...prev, [IMGS[index]]: true }));
+        };
+        img.src = IMGS[index];
+      }
+    };
+
+    // 预加载当前图片
+    preload(imgIndex);
+    
+    // 预加载前一张和后一张图片
+    preload(imgIndex - 1);
+    preload(imgIndex + 1);
+    
+    // 设置当前显示的图片
+    setCurrentImage(IMGS[imgIndex]);
+  }, [imgIndex, IMGS]);
 
   const handlePrev = () => {
     if (imgIndex > 0) {
@@ -31,7 +56,11 @@ const ViewImg = () => {
   return (
     <div className="mask">
       <div className="image-container">
-        <img src={IMGS[imgIndex]} alt={`img-${imgIndex}`} className="preview-image" />
+        <img 
+          src={currentImage} 
+          alt={`img-${imgIndex}`} 
+          className="preview-image" 
+        />
       </div>
       <div className="navigation">
         <img
@@ -55,4 +84,4 @@ const ViewImg = () => {
   );
 };
 
-export default ViewImg;
+export default memo(ViewImg);

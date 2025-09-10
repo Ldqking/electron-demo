@@ -275,3 +275,21 @@
 .exit-fullscreen-btn:hover {
   background-color: rgba(0, 0, 0, 0.7);
 }
+
+.video-background {
+  /* 启用硬件加速 */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.btn-video {
+  /* 启用硬件加速 */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.preview-image {
+  /* 启用硬件加速 */
+  transform: translateZ(0);
+  will-change: transform;
+}

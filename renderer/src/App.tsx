@@ -21,50 +21,64 @@ function App() {
   const [showViewVideo, setShowViewVideo] = useState(false);
 
   const [showNavbar, setShowNavbar] = useState(true);
-  const [clickTimer, setClickTimer] = useState<any>(null);
+  // const [clickTimer, setClickTimer] = useState<any>(null);
+  const clickTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const videoRef = useRef<HTMLVideoElement>(null);
 
   // 点击空白区域显示导航栏
   const handleBackgroundClick = () => {
     // 清除之前的定时器
-    if (clickTimer) {
-      clearTimeout(clickTimer);
-      setClickTimer(null);
+    if (clickTimerRef.current) {
+      clearTimeout(clickTimerRef.current);
+      clickTimerRef.current = null;
     }
 
     // 显示导航栏
     setShowNavbar(true);
 
     // 3秒后自动隐藏
-    const timer = setTimeout(() => {
+    clickTimerRef.current = setTimeout(() => {
       setShowNavbar(false);
+      clickTimerRef.current = null;
     }, 3000);
 
-    setClickTimer(timer);
   };
 
   // 组件卸载时清理定时器
   useEffect(() => {
     return () => {
-      if (clickTimer) clearTimeout(clickTimer);
+      if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
     };
-  }, [clickTimer]);
+  }, []);
 
+  const btn1Ref = useRef<HTMLVideoElement>(null);
+  const btn2Ref = useRef<HTMLVideoElement>(null);
+  
   const handleViewImg = () => {
     setShowViewImg(true);
     setShowViewVideo(false);
+    // 暂停按钮视频
+    if (btn1Ref.current) btn1Ref.current.pause();
+    if (btn2Ref.current) btn2Ref.current.pause();
   };
 
   const handleViewVideo = () => {
     setShowViewVideo(true);
     setShowViewImg(false);
+    // 暂停按钮视频
+    if (btn1Ref.current) btn1Ref.current.pause();
+    if (btn2Ref.current) btn2Ref.current.pause();
   };
 
   const handleClose = () => {
     setShowViewImg(false);
     setShowViewVideo(false);
+    // 恢复按钮视频
+    if (btn1Ref.current) btn1Ref.current.play();
+    if (btn2Ref.current) btn2Ref.current.play();
   };
+  
 
   // 处理触摸事件，防止冒泡
   const handleCloseTouch = (e: React.TouchEvent) => {
@@ -119,6 +133,7 @@ function App() {
           >
             <video
               className="btn-video"
+              ref={btn1Ref}
               autoPlay
               loop
               muted
@@ -134,6 +149,7 @@ function App() {
           >
             <video
               className="btn-video"
+              ref={btn2Ref}
               autoPlay
               loop
               muted
