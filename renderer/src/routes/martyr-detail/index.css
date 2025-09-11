@@ -1,0 +1,72 @@
+.martyr-detail-app {
+  position: relative;
+  width: 70%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 7vh;
+  justify-content: center;
+  align-items: center;
+}
+.martyr-detail {
+  display: flex;
+  width: 100%;
+  /* margin-top: -10vh; */
+  /* height: 100%; */
+}
+.martyr-detail-avatar {
+  width: 30%;
+}
+.martyr-detail-info {
+  flex: 1
+}
+.info-title {
+  width: 35%;
+  aspect-ratio: 452/80;
+  display: flex;
+  gap: 2vw;
+  font-size: 1.5vw;
+  color: #F3D7A7;
+  font-weight: 900;
+  padding-top: 0.5vh;
+}
+.info-title-line {
+  margin-left: 1vw;
+}
+.info-desc {
+  position: relative;
+  z-index: -1;
+  width: calc(100% - 3vw);
+  height: 84%;
+  padding: 2.5vh 1vw;
+  font-size: 1vw;
+  color: white;
+  border: 1px dashed rgba(255, 222, 152, 0.7);
+  background-color: rgba(0, 0, 0, 0.1);
+  margin-top: -3vh;
+  margin-left: 0.4vw;
+  text-align: left;
+  line-height: 3vh;
+  white-space: break-spaces;
+  text-indent: 2em;
+}
+
+.martyr-btns {
+  width: 100%;
+  display: flex;
+  gap: 1vw;
+}
+.martyr-btns img{
+  width: calc(50% - 0.5vw);
+  aspect-ratio: 562/84;
+  cursor: pointer;
+  pointer-events: all;
+  /* 添加过渡效果 */
+  transition: all 0.2s ease-in-out;
+}
+
+@media (hover: hover) {
+  .martyr-btns img:hover {
+    transform: scale(0.99);
+  }
+}

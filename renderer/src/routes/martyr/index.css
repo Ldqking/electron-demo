@@ -1,0 +1,27 @@
+.martyr-app {
+  position: relative;
+  width: 90%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.martyr-btn {
+  position: relative;
+  overflow: hidden;
+  background-color: transparent;
+  width: 100%;
+  aspect-ratio: 615/322;
+  cursor: pointer;
+  pointer-events: all;
+  /* 添加过渡效果 */
+  transition: all 0.2s ease-in-out;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); */
+}
+
+/* 仅在支持 hover 的设备上应用 hover 效果 */
+@media (hover: hover) {
+  .martyr-btn:hover {
+    transform: scale(0.99);
+  }
+}
