@@ -143,8 +143,8 @@ function App() {
             </video>
           </div>
 
-          {showViewImg && <ViewImg imgList={['./img/protocol/ali.png']} />}
-          {showViewVideo && <ViewImg />}
+          {showViewImg && <ViewImg imgList={['./img/protocol/ali_new.png']} />}
+          {showViewVideo && <ViewImg imgList={['./img/protocol/jzhang_new.png']} />}
 
           {(showViewImg || showViewVideo) && (
             <div
