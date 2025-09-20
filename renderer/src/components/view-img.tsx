@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useCallback, useState } from "react";
 
 const IMGS = [
   './img/protocol/jzhang1.png',
@@ -8,22 +8,19 @@ const ViewImg = ({imgList = IMGS}: {imgList?: string[]}) => {
 
   const [imgIndex, setImgIndex] = useState(0);
 
-  const handlePrev = () => {
-    if (imgIndex > 0) {
-      setImgIndex(imgIndex - 1);
-    }
-  };
+  // 使用 useCallback 优化事件处理函数
+  const handlePrev = useCallback(() => {
+    setImgIndex(prev => Math.max(0, prev - 1));
+  }, []);
 
-  const handleNext = () => {
-    if (imgIndex < imgList.length - 1) {
-      setImgIndex(imgIndex + 1);
-    }
-  };
+  const handleNext = useCallback(() => {
+    setImgIndex(prev => Math.min(imgList.length - 1, prev + 1));
+  }, [imgList.length]);
 
   // 防止事件冒泡和默认行为
-  const handleButtonMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
+  const handleButtonMouseDown = useCallback((e: React.MouseEvent | React.TouchEvent) => {
     e.stopPropagation();
-  };
+  }, []);
 
   return (
     <div className="mask">
@@ -52,4 +49,4 @@ const ViewImg = ({imgList = IMGS}: {imgList?: string[]}) => {
   );
 };
 
-export default ViewImg;
+export default memo(ViewImg);

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import './App.css'
 import ViewImg from './components/view-img';
 // import ViewVideo from './components/view-video';
@@ -17,59 +17,76 @@ declare global {
 }
 
 function App() {
-  const [showViewImg, setShowViewImg] = useState(false);
-  const [showViewVideo, setShowViewVideo] = useState(false);
+ const [currentView, setCurrentView] = useState<'none' | 'image' | 'video'>('none');
 
   const [showNavbar, setShowNavbar] = useState(true);
-  const [clickTimer, setClickTimer] = useState<any>(null);
+  const clickTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const videoRef = useRef<HTMLVideoElement>(null);
+  const videoBtnRef = useRef<HTMLVideoElement>(null);
+  const videoBtnRef2 = useRef<HTMLVideoElement>(null);
 
   // 点击空白区域显示导航栏
-  const handleBackgroundClick = () => {
+  // 优化事件处理，使用useCallback避免不必要的重渲染
+  const handleBackgroundClick = useCallback(() => {
     // 清除之前的定时器
-    if (clickTimer) {
-      clearTimeout(clickTimer);
-      setClickTimer(null);
+    if (clickTimerRef.current) {
+      clearTimeout(clickTimerRef.current);
     }
 
     // 显示导航栏
     setShowNavbar(true);
 
     // 3秒后自动隐藏
-    const timer = setTimeout(() => {
+    clickTimerRef.current = setTimeout(() => {
       setShowNavbar(false);
     }, 3000);
-
-    setClickTimer(timer);
-  };
+  }, []);
 
   // 组件卸载时清理定时器
   useEffect(() => {
     return () => {
-      if (clickTimer) clearTimeout(clickTimer);
+      if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
     };
-  }, [clickTimer]);
+  }, []);
 
-  const handleViewImg = () => {
-    setShowViewImg(true);
-    setShowViewVideo(false);
-  };
+  const handleViewImg = useCallback(() => {
+    setCurrentView('image');
+    // 暂停背景视频
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+    videoBtnRef.current?.pause();
+    videoBtnRef2.current?.pause();
+  }, []);
 
-  const handleViewVideo = () => {
-    setShowViewVideo(true);
-    setShowViewImg(false);
-  };
+  const handleViewVideo = useCallback(() => {
+    setCurrentView('video');
+    // 暂停背景视频
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+    videoBtnRef.current?.pause();
+    videoBtnRef2.current?.pause();
+  }, []);
 
-  const handleClose = () => {
-    setShowViewImg(false);
-    setShowViewVideo(false);
-  };
+  const handleClose = useCallback(() => {
+    setCurrentView('none');
+    // 恢复背景视频播放
+    if (videoRef.current) {
+      videoRef.current.play().catch(e => console.log('Video play failed:', e));
+    }
+    videoBtnRef.current?.play()
+    videoBtnRef2.current?.play();
+  }, []);
 
   // 处理触摸事件，防止冒泡
-  const handleCloseTouch = (e: React.TouchEvent) => {
+  const handleCloseTouch = useCallback((e: React.TouchEvent) => {
     e.stopPropagation();
-  };
+  }, []);
+
+  
+  
 
   return (
     <>
@@ -119,6 +136,7 @@ function App() {
           >
             <video
               className="btn-video"
+              ref={videoBtnRef}
               autoPlay
               loop
               muted
@@ -134,6 +152,7 @@ function App() {
           >
             <video
               className="btn-video"
+              ref={videoBtnRef2}
               autoPlay
               loop
               muted
@@ -143,10 +162,10 @@ function App() {
             </video>
           </div>
 
-          {showViewImg && <ViewImg imgList={['./img/protocol/ali_new.png']} />}
-          {showViewVideo && <ViewImg imgList={['./img/protocol/jzhang_new.png']} />}
+          {currentView !== 'none' && <ViewImg imgList={currentView === 'image'?['./img/protocol/ali_new.png']:['./img/protocol/jzhang_new.png']} />}
+          {/* {currentView === 'video'  && <ViewImg imgList={['./img/protocol/jzhang_new.png']} />} */}
 
-          {(showViewImg || showViewVideo) && (
+          {currentView !== 'none' && (
             <div
               className='close'
               onClick={handleClose}

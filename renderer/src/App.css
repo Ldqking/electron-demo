@@ -23,6 +23,8 @@
   object-fit: cover;
   object-position: left center;
   z-index: -1;
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 
@@ -44,6 +46,7 @@
   width: 100%;
   height: 100%;
   transform: scale(1.01);
+  will-change: transform;
   object-fit: cover;
   object-position: center;
 }
@@ -106,6 +109,8 @@
   max-width: 100vw;
   /* max-height: 100vh; */
   object-fit: contain;
+  transform: translateZ(0);
+  image-rendering: -webkit-optimize-contrast;
 }
 
 .navigation {
