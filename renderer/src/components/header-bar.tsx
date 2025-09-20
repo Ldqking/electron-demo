@@ -4,6 +4,7 @@ export interface IElectronAPI {
   minimize: () => void;
   maximize: () => void;
   close: () => void;
+  openKeyboard: any;
 }
 
 declare global {

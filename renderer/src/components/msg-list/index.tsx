@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import './index.css'
 import { BANNED_WORDS } from '../../lib/enum';
 const MsgList = () => {
-  const [list, setList] = useState<{msg:string,time:string}[]>(JSON.parse(localStorage.getItem('msgList') ?? '[]'));
+  const [list, setList] = useState<{ msg: string, time: string }[]>(JSON.parse(localStorage.getItem('msgList') ?? '[]'));
   const [showAdd, setShowAdd] = useState<boolean>(false);
   const [addMsg, setAddMsg] = useState<string>('');
   const [placeholder, setPlaceholder] = useState<string>('请输入您的留言...');
@@ -64,10 +64,17 @@ const MsgList = () => {
     setList(msgList);
   }
 
-  useEffect(() => { 
-    if (showAdd) { 
+  useEffect(() => {
+    if (showAdd) {
       //自动聚焦文本框
-      textareaRef.current&&textareaRef.current.focus();
+      textareaRef.current && textareaRef.current.focus();
+      console.log('[ window.electron ]', window.electron)
+      // 打开屏幕键盘
+      if (window.electron) {
+        window.electron.openKeyboard().catch((err: any) => {
+          console.error('无法打开键盘:', err);
+        });
+      }
     }
   }, [showAdd]);
 
@@ -98,7 +105,12 @@ const MsgList = () => {
                 placeholder={placeholder}
                 onChange={(e) => handleChangeMsg(e)}
                 maxLength={50}
-                name="msg" id=""
+                name="msg"
+                inputMode="text"
+                autoComplete="off"
+                autoCapitalize="sentences"
+                spellCheck="true"
+                aria-label="留言输入框"
               ></textarea>
             </div>
           </div>

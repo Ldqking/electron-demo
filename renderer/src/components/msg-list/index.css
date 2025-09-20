@@ -5,6 +5,7 @@
   display: flex;
   align-items: center;
 }
+
 .msg-add {
   position: absolute;
   bottom: 4vh;
@@ -13,6 +14,7 @@
   width: 30%;
   aspect-ratio: 562/84;
 }
+
 .msg-add img {
   width: 100%;
   height: 100%;
@@ -21,6 +23,7 @@
   /* 添加过渡效果 */
   transition: all 0.2s ease-in-out;
 }
+
 .msg-add-box {
   position: fixed;
   width: 100vw;
@@ -35,13 +38,15 @@
   align-items: center;
   z-index: 99999;
 }
+
 .msg-box {
   width: 35%;
   border: 0.2vw solid rgba(180, 140, 120, 1);
-  box-shadow: 
+  box-shadow:
     0 4px 8px rgba(0, 0, 0, 0.3),
     inset 0 1px 2px rgba(255, 255, 255, 0.2);
 }
+
 .msg-box-info {
   position: relative;
   margin: 0.1vw;
@@ -51,6 +56,7 @@
   font-size: 1.2vw;
   text-align: left;
 }
+
 textarea {
   position: absolute;
   top: 0;
@@ -64,10 +70,12 @@ textarea {
   color: white;
   font-size: 1.5vw;
 }
+
 textarea:focus {
   outline: none;
   border: none;
 }
+
 textarea::placeholder {
   color: rgba(255, 255, 255, 0.6);
 }
@@ -90,6 +98,7 @@ textarea::placeholder {
   .msg-box-send img:hover {
     transform: scale(0.99);
   }
+
   .msg-add img:hover {
     transform: scale(0.99);
   }
@@ -109,10 +118,11 @@ textarea::placeholder {
   height: 12vh;
   margin-top: 4vh;
   border: 0.2vw solid rgba(180, 140, 120, 1);
-  box-shadow: 
+  box-shadow:
     0 4px 8px rgba(0, 0, 0, 0.3),
     inset 0 1px 2px rgba(255, 255, 255, 0.2);
 }
+
 .msg-item-content {
   width: calc(100% - 2.2vw);
   height: calc(100% - 2vh - 0.2vw);
@@ -121,4 +131,7 @@ textarea::placeholder {
   background: linear-gradient(180deg, rgba(180, 140, 120, 0.4) 0%, rgba(160, 110, 90, 1) 100%);
   font-size: 1.2vw;
   text-align: left;
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: pre-wrap;
 }

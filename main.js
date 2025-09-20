@@ -6,37 +6,22 @@ async function createWindow() {
   const win = await new BrowserWindow({
     width: 1200,
     height: 800,
-    frame: false, // 去掉默认的顶部栏和边框
-    // maximized: true,
+    frame: false,
     fullscreen: true,
     webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false
+      nodeIntegration: false,
+      contextIsolation: true,
+      preload: path.join(__dirname, 'preload.js')
     },
     icon: path.join(__dirname, 'icon.ico')
   })
 
-  // win.maximize(); // 以在创建时最大化窗口
-
   // 自动检测 Vite 服务
   http.get('http://localhost:5173', res => {
     win.loadURL('http://localhost:5173')
-    // win.webContents.openDevTools()
   }).on('error', () => {
     win.loadFile(path.join(__dirname, 'renderer/dist/index.html'))
-    // win.webContents.openDevTools()
   })
-
-  // 暴露窗口控制方法给渲染进程
-  win?.webContents.on('did-finish-load', () => {
-    win.webContents.executeJavaScript(`
-      window.electron = {
-        minimize: () => { require('electron').ipcRenderer.send('minimize') },
-        maximize: () => { require('electron').ipcRenderer.send('maximize') },
-        close: () => { require('electron').ipcRenderer.send('close') }
-      }
-    `);
-  });
 
   return win;
 }
@@ -77,4 +62,36 @@ ipcMain.on('maximize', () => {
 ipcMain.on('close', () => {
   const win = BrowserWindow.getFocusedWindow();
   if (win) win.close();
+});
+
+const { exec, spawn } = require('child_process');
+
+// 监听打开键盘的请求
+ipcMain.handle('open-keyboard', async () => {
+  return new Promise((resolve, reject) => {
+    // 首先设置默认键盘布局为手写模式
+    exec('reg add "HKCU\\SOFTWARE\\Microsoft\\TabletTip\\1.7" /v DefaultKeyboardLayout /t REG_DWORD /d 2 /f', (regError) => {
+      if (regError) {
+        console.warn('设置手写模式失败:', regError);
+      }
+      
+      // 启动触摸键盘
+      exec('tabtip.exe', (error, stdout, stderr) => {
+        if (error) {
+          console.warn('无法启动触摸键盘，回退到屏幕键盘:', error);
+          // 回退到传统屏幕键盘
+          exec('osk.exe', (oskError, oskStdout, oskStderr) => {
+            if (oskError) {
+              console.error('无法启动屏幕键盘:', oskError);
+              reject(oskError);
+              return;
+            }
+            resolve('屏幕键盘已启动');
+          });
+          return;
+        }
+        resolve('触摸键盘已启动（手写模式）');
+      });
+    });
+  });
 });

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { IMGS_OF_BEFORE } from "../lib/enum";
+// import { IMGS_OF_BEFORE } from "../lib/enum";
 
-const IMGS: string[] = IMGS_OF_BEFORE;
+const IMGS: string[] = [];
 const ViewImg = ({imgList = IMGS}: {imgList?: string[]}) => {
   console.log('[ imgList ]', imgList)
 
