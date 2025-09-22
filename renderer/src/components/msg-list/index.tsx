@@ -65,17 +65,48 @@ const MsgList = () => {
   }
 
   useEffect(() => {
-    if (showAdd) {
-      //自动聚焦文本框
-      textareaRef.current && textareaRef.current.focus();
-      console.log('[ window.electron ]', window.electron)
-      // 打开屏幕键盘
-      if (window.electron) {
-        window.electron.openKeyboard().catch((err: any) => {
-          console.error('无法打开键盘:', err);
-        });
-      }
+    if (showAdd && textareaRef.current) {
+      // 自动聚焦文本框
+      textareaRef.current.focus();
     }
+  }, [showAdd]);
+
+  useEffect(() => {
+    // 只有在显示输入框时才监听聚焦事件
+    if (!showAdd) return;
+
+    // 延迟执行确保 DOM 已经挂载
+    const timer = setTimeout(() => {
+      const textarea = textareaRef.current;
+      if (!textarea) return;
+
+      // 定义聚焦处理函数
+      const handleFocus = () => {
+        console.log('文本框获得焦点，尝试打开键盘');
+        if (window.electron) {
+          window.electron.openKeyboard().catch((err: any) => {
+            console.error('无法打开键盘:', err);
+          });
+        }
+      };
+
+      // 添加聚焦事件监听器
+      textarea.addEventListener('focus', handleFocus);
+
+      // 手动触发一次聚焦事件处理（因为可能已经聚焦了）
+      if (document.activeElement === textarea) {
+        handleFocus();
+      }
+
+      // 清理函数
+      return () => {
+        textarea.removeEventListener('focus', handleFocus);
+      };
+    }, 0);
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, [showAdd]);
 
   return (
