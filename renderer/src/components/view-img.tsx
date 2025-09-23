@@ -1,27 +1,26 @@
 import { useState, useEffect, memo } from "react";
 
-const ViewImg = () => {
-  const IMGS = [
-    './img/protocol/find1.jpg',
-    './img/protocol/find2.jpg',
-    './img/protocol/find3.jpg',
-    './img/protocol/find4.png',
-    './img/protocol/find5.png',
-  ];
-
+const IMGS = [
+  './img/protocol/find1.jpg',
+  './img/protocol/find2.jpg',
+  './img/protocol/find3.jpg',
+  './img/protocol/find4.png',
+  './img/protocol/find5.png',
+];
+const ViewImg = ({list = IMGS}: {list?: string[]}) => {
   const [imgIndex, setImgIndex] = useState(0);
-  const [currentImage, setCurrentImage] = useState(IMGS[0]);
+  const [currentImage, setCurrentImage] = useState(list[0]);
   const [preloadedImages, setPreloadedImages] = useState<{[key: string]: boolean}>({});
 
   // 预加载当前和相邻图片
   useEffect(() => {
     const preload = (index: number) => {
-      if (index >= 0 && index < IMGS.length && !preloadedImages[IMGS[index]]) {
+      if (index >= 0 && index < list.length && !preloadedImages[list[index]]) {
         const img = new Image();
         img.onload = () => {
-          setPreloadedImages(prev => ({ ...prev, [IMGS[index]]: true }));
+          setPreloadedImages(prev => ({ ...prev, [list[index]]: true }));
         };
-        img.src = IMGS[index];
+        img.src = list[index];
       }
     };
 
@@ -33,8 +32,8 @@ const ViewImg = () => {
     preload(imgIndex + 1);
     
     // 设置当前显示的图片
-    setCurrentImage(IMGS[imgIndex]);
-  }, [imgIndex, IMGS]);
+    setCurrentImage(list[imgIndex]);
+  }, [imgIndex, list]);
 
   const handlePrev = () => {
     if (imgIndex > 0) {
@@ -43,7 +42,7 @@ const ViewImg = () => {
   };
 
   const handleNext = () => {
-    if (imgIndex < IMGS.length - 1) {
+    if (imgIndex < list.length - 1) {
       setImgIndex(imgIndex + 1);
     }
   };
@@ -74,7 +73,7 @@ const ViewImg = () => {
         <img
           src="./img/r-btn.webp"
           alt="right"
-          className={`nav-button ${imgIndex === IMGS.length - 1 ? 'disabled' : ''}`}
+          className={`nav-button ${imgIndex === list.length - 1 ? 'disabled' : ''}`}
           onClick={handleNext}
           onMouseDown={handleButtonMouseDown}
           onTouchStart={handleButtonMouseDown}

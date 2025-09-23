@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import './App.css'
 import ViewImg from './components/view-img';
 import ViewVideo from './components/view-video';
+import ViewImgOverflow from './components/view-img-overflow';
 
 // renderer/src/types/global.d.ts
 export interface IElectronAPI {
@@ -17,7 +18,7 @@ declare global {
 }
 
 function App() {
-  const [showViewImg, setShowViewImg] = useState(false);
+  const [showViewImg, setShowViewImg] = useState<'ali'|'other'|''>('');
   const [showViewVideo, setShowViewVideo] = useState(false);
 
   const [showNavbar, setShowNavbar] = useState(true);
@@ -52,38 +53,44 @@ function App() {
     };
   }, []);
 
-  const btn1Ref = useRef<HTMLVideoElement>(null);
-  const btn2Ref = useRef<HTMLVideoElement>(null);
-  
-  const handleViewImg = () => {
-    setShowViewImg(true);
-    setShowViewVideo(false);
-    // 暂停按钮视频
-    if (btn1Ref.current) btn1Ref.current.pause();
-    if (btn2Ref.current) btn2Ref.current.pause();
-  };
+  // 控制背景视频播放/暂停
+  useEffect(() => {
+    if (videoRef.current) {
+      if (showViewImg || showViewVideo) {
+        // 当显示模板时暂停背景视频
+        videoRef.current.pause();
+      } else {
+        // 当关闭模板时播放背景视频
+        videoRef.current.play().catch(error => {
+          console.log('Auto-play prevented:', error);
+        });
+      }
+    }
+  }, [showViewImg, showViewVideo]);
 
-  const handleViewVideo = () => {
+  const handleClose = useCallback(() => {
+    setShowViewImg('');
+    setShowViewVideo(false);
+  }, []);
+
+  const handleViewImgAli = useCallback(() => {
+    setShowViewImg('ali');
+    setShowViewVideo(false);
+  }, []);
+
+  const handleViewImg = useCallback(() => {
+    setShowViewImg('other');
+    setShowViewVideo(false);
+  }, []);
+
+  const handleViewVideo = useCallback(() => {
     setShowViewVideo(true);
-    setShowViewImg(false);
-    // 暂停按钮视频
-    if (btn1Ref.current) btn1Ref.current.pause();
-    if (btn2Ref.current) btn2Ref.current.pause();
-  };
+    setShowViewImg('');
+  }, []);
 
-  const handleClose = () => {
-    setShowViewImg(false);
-    setShowViewVideo(false);
-    // 恢复按钮视频
-    if (btn1Ref.current) btn1Ref.current.play();
-    if (btn2Ref.current) btn2Ref.current.play();
-  };
-  
-
-  // 处理触摸事件，防止冒泡
-  const handleCloseTouch = (e: React.TouchEvent) => {
+  const handleCloseTouch = useCallback((e: React.TouchEvent) => {
     e.stopPropagation();
-  };
+  }, []);
 
   return (
     <>
@@ -107,7 +114,9 @@ function App() {
           />
         </div>
       </div>
-      <div className="app-container">
+      <div className="app-container"
+        onClick={handleBackgroundClick}
+        onTouchStart={handleBackgroundClick}>
         {/* 视频背景 */}
         <video
           ref={videoRef}
@@ -120,8 +129,26 @@ function App() {
           <source src="./img/bg/bg.mp4" type="video/mp4" />
           您的浏览器不支持视频背景。
         </video>
-
         <div
+          onClick={handleViewImg}
+          className='btn1 common-button'
+          onTouchStart={(e) => e.stopPropagation()}
+        >
+        </div>
+        <div
+          onClick={handleViewVideo}
+          className='btn2 common-button'
+          onTouchStart={(e) => e.stopPropagation()}
+        >
+        </div>
+        <div
+          onClick={handleViewImgAli}
+          className='btn3 common-button'
+          onTouchStart={(e) => e.stopPropagation()}
+        >
+        </div>
+
+        {/* <div
           className='app'
           onClick={handleBackgroundClick}
           onTouchStart={handleBackgroundClick}
@@ -158,8 +185,9 @@ function App() {
               <source src="./img/bg/btn2.mp4" type="video/mp4" />
             </video>
           </div>
-        </div>
-        {showViewImg && <ViewImg />}
+        </div> */}
+        {showViewImg === 'other' && <ViewImg />}
+        {showViewImg === 'ali' && <ViewImgOverflow />}
         {showViewVideo && <ViewVideo onClose={handleClose} />}
 
         {(showViewImg || showViewVideo) && (
