@@ -1,14 +1,14 @@
 import { useState } from "react";
 
+const IMGS = [
+  './img/protocol/telegram1.jpg',
+  './img/protocol/telegram2.jpg',
+  './img/protocol/telegram3.jpg',
+  './img/protocol/telegram4.jpg',
+  './img/protocol/telegram5.jpg',
+  './img/protocol/telegram6.jpg',
+];
 const ViewImg = () => {
-  const IMGS = [
-    './img/protocol/telegram1.jpg',
-    './img/protocol/telegram2.jpg',
-    './img/protocol/telegram3.jpg',
-    './img/protocol/telegram4.jpg',
-    './img/protocol/telegram5.jpg',
-    './img/protocol/telegram6.jpg',
-  ];
 
   const [imgIndex, setImgIndex] = useState(0);
 
