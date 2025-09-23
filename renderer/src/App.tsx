@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import './App.css'
 import ViewImg from './components/view-img';
-import { IMGS_OF_AFTER, IMGS_OF_FIRST, IMGS_OF_SECOND } from './lib/enum';
+import { IMGS_OF_AFTER, IMGS_OF_BEFORE, IMGS_OF_FIRST, IMGS_OF_SECOND } from './lib/enum';
 // import ViewVideo from './components/view-video';
 
 // renderer/src/types/global.d.ts
@@ -18,59 +18,82 @@ declare global {
 }
 
 function App() {
-  const [showViewImg, setShowViewImg] = useState(false);
-  const [showViewImg2, setShowViewIm2] = useState(false);
-  const [showViewImg3, setShowViewIm3] = useState(false);
-  const [showViewImg4, setShowViewIm4] = useState(false);
-
+  const [showViewImg, setShowViewImg] = useState<'before' | 'first' | 'second' | 'after' | ''>('');
 
   const [showNavbar, setShowNavbar] = useState(true);
-  const [clickTimer, setClickTimer] = useState<any>(null);
+  const clickTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const videoRef = useRef<HTMLVideoElement>(null);
 
   // 点击空白区域显示导航栏
   const handleBackgroundClick = () => {
     // 清除之前的定时器
-    if (clickTimer) {
-      clearTimeout(clickTimer);
-      setClickTimer(null);
+    if (clickTimerRef.current) {
+      clearTimeout(clickTimerRef.current);
+      clickTimerRef.current = null;
     }
 
     // 显示导航栏
     setShowNavbar(true);
 
     // 3秒后自动隐藏
-    const timer = setTimeout(() => {
+    clickTimerRef.current = setTimeout(() => {
       setShowNavbar(false);
+      clickTimerRef.current = null;
     }, 3000);
 
-    setClickTimer(timer);
   };
 
   // 组件卸载时清理定时器
   useEffect(() => {
     return () => {
-      if (clickTimer) clearTimeout(clickTimer);
+      if (clickTimerRef.current) clearTimeout(clickTimerRef.current);
     };
-  }, [clickTimer]);
+  }, []);
 
-  const handleViewImg = () => {
-    setShowViewImg(true);
-  };
+  // 控制背景视频播放/暂停
+  useEffect(() => {
+    if (videoRef.current) {
+      if (showViewImg !== '') {
+        // 当显示模板时暂停背景视频
+        videoRef.current.pause();
+      } else {
+        // 当关闭模板时播放背景视频
+        videoRef.current.play().catch(error => {
+          console.log('Auto-play prevented:', error);
+        });
+      }
+    }
+  }, [showViewImg]);
 
-  const handleClose = () => {
-    setShowViewImg(false);
-    setShowViewIm2(false);
-    setShowViewIm3(false);
-    setShowViewIm4(false);
-  };
+  const handleViewImg = useCallback((str: 'before' | 'first' | 'second' | 'after') => {
+    setShowViewImg(str);
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setShowViewImg('');
+  }, []);
+
+  // 计算图片列表
+  const getImgList = useCallback((str: 'before' | 'first' | 'second' | 'after') => {
+    switch (str) {
+      case 'before':
+        return IMGS_OF_BEFORE;
+      case 'first':
+        return IMGS_OF_FIRST;
+      case 'second':
+        return IMGS_OF_SECOND;
+      case 'after':
+        return IMGS_OF_AFTER;
+      default:
+        return [];
+    }
+  }, []);
 
   // 处理触摸事件，防止冒泡
-  const handleCloseTouch = (e: React.TouchEvent) => {
+  const handleCloseTouch = useCallback((e: React.TouchEvent) => {
     e.stopPropagation();
-  };
-
+  }, []);
   return (
     <>
       <div className={`title-bar ${showNavbar ? 'hidden' : 'hidden'}`}>
@@ -106,13 +129,37 @@ function App() {
           <source src="./img/bg/bg.mp4" type="video/mp4" />
           您的浏览器不支持视频背景。
         </video>
+        <div
+          onClick={() => { handleViewImg('before') }}
+          className='btn1 common-button'
+          onTouchStart={(e) => e.stopPropagation()}
+        >
+        </div>
+        <div
+          onClick={() => { handleViewImg('first') }}
+          className='btn2 common-button'
+          onTouchStart={(e) => e.stopPropagation()}
+        >
+        </div>
+        <div
+          onClick={() => { handleViewImg('second') }}
+          className='btn3 common-button'
+          onTouchStart={(e) => e.stopPropagation()}
+        >
+        </div>
+        <div
+          onClick={() => { handleViewImg('after') }}
+          className='btn4 common-button'
+          onTouchStart={(e) => e.stopPropagation()}
+        >
+        </div>
 
         <div
           className='app'
           onClick={handleBackgroundClick}
           onTouchStart={handleBackgroundClick}
         >
-          <div
+          {/* <div
             onClick={handleViewImg}
             className='btn'
             onTouchStart={(e) => e.stopPropagation()}
@@ -128,7 +175,7 @@ function App() {
             </video>
           </div>
           <div
-            onClick={() => {setShowViewIm2(true)}}
+            onClick={() => { setShowViewIm2(true) }}
             className='btn'
             onTouchStart={(e) => e.stopPropagation()}
           >
@@ -143,7 +190,7 @@ function App() {
             </video>
           </div>
           <div
-            onClick={() => {setShowViewIm3(true)}}
+            onClick={() => { setShowViewIm3(true) }}
             className='btn'
             onTouchStart={(e) => e.stopPropagation()}
           >
@@ -158,7 +205,7 @@ function App() {
             </video>
           </div>
           <div
-            onClick={() => {setShowViewIm4(true)}}
+            onClick={() => { setShowViewIm4(true) }}
             className='btn'
             onTouchStart={(e) => e.stopPropagation()}
           >
@@ -171,14 +218,11 @@ function App() {
             >
               <source src="./img/bg/btn4.mp4" type="video/mp4" />
             </video>
-          </div>
+          </div> */}
 
-          {showViewImg && <ViewImg />}
-          {showViewImg2 && <ViewImg imgList={IMGS_OF_FIRST} />}
-          {showViewImg3 && <ViewImg imgList={IMGS_OF_SECOND} />}
-          {showViewImg4 && <ViewImg imgList={IMGS_OF_AFTER} />}
+          {showViewImg !== '' && <ViewImg imgList={getImgList(showViewImg)} />}
 
-          {(showViewImg || showViewImg2 || showViewImg3 || showViewImg4) && (
+          {showViewImg !== '' && (
             <div
               className='close'
               onClick={handleClose}

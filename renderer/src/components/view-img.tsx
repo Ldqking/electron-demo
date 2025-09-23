@@ -3,8 +3,6 @@ import { IMGS_OF_BEFORE } from "../lib/enum";
 
 const IMGS: string[] = IMGS_OF_BEFORE;
 const ViewImg = ({imgList = IMGS}: {imgList?: string[]}) => {
-  console.log('[ imgList ]', imgList)
-
   const [imgIndex, setImgIndex] = useState(0);
 
   const handlePrev = () => {
