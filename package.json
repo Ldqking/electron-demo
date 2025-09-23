@@ -51,6 +51,8 @@
     "files": [
       "main.js",
       "package.json",
+      "preload.js",
+      "icon.ico",
       {
         "from": "renderer/dist",
         "to": "renderer/dist"

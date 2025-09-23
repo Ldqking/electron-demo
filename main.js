@@ -86,6 +86,39 @@ ipcMain.handle('open-keyboard', async () => {
     });
   });
 });
+
+// 监听打开键盘的请求
+// ipcMain.handle('open-keyboard', async () => {
+//   return new Promise((resolve, reject) => {
+//     // 1. 先尝试打开指定输入法
+//     const { exec } = require('child_process');
+    
+//     const imePath = 'D:\\XYB\\XYBSky.exe';
+    
+//     exec(`"${imePath}"`, (imeError, stdout, stderr) => {
+//       if (imeError) {
+//         console.warn('启动指定输入法失败，回退到系统触摸键盘:', imeError);
+        
+//         // 2. 回退到系统触摸键盘 osk.exe
+//         exec('osk.exe', (oskError, oskStdout, oskStderr) => {
+//           if (oskError) {
+//             console.error('启动触摸键盘失败:', oskError);
+//             // 回退方案：提示用户手动操作
+//             reject(new Error('触摸键盘启动失败，请检查系统已安装手写输入组件'));
+//             return;
+//           }
+          
+//           // 系统触摸键盘启动成功
+//           resolve('触摸键盘已启动，请手动点击键盘左上角的笔图标切换到手写模式');
+//         });
+//         return;
+//       }
+      
+//       // 指定输入法启动成功
+//       resolve('指定输入法已启动，请切换到手写模式');
+//     });
+//   });
+// });
 // ipcMain.handle('open-keyboard', async () => {
 //   // 将 'tabtip.exe' 替换为绝对路径
 //   const tabtipPath = 'C:\\Program Files\\Common Files\\microsoft shared\\ink\\tabtip.exe';

@@ -64,7 +64,7 @@ const HeaderBar = forwardRef<HeaderBarHandles>((_props, ref) => {
   }, []);
 
   return (
-    <div className={`title-bar ${showNavbar ? '' : 'hidden'}`}>
+    <div className={`title-bar ${showNavbar ? 'hidden' : 'hidden'}`}>
       <div className="title-bar-title">
         <img src="./vite.svg" alt="logo" />
         <p>烈士-留言板</p>
