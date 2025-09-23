@@ -17,14 +17,12 @@ declare global {
 }
 
 function App() {
- const [currentView, setCurrentView] = useState<'none' | 'image' | 'video'>('none');
+  const [currentView, setCurrentView] = useState<'none' | 'image' | 'video'>('none');
 
   const [showNavbar, setShowNavbar] = useState(true);
   const clickTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const videoRef = useRef<HTMLVideoElement>(null);
-  const videoBtnRef = useRef<HTMLVideoElement>(null);
-  const videoBtnRef2 = useRef<HTMLVideoElement>(null);
 
   // 点击空白区域显示导航栏
   // 优化事件处理，使用useCallback避免不必要的重渲染
@@ -50,34 +48,37 @@ function App() {
     };
   }, []);
 
+  // 控制背景视频播放/暂停
+  useEffect(() => {
+    if (videoRef.current) {
+      if (currentView === 'image') {
+        // 当显示模板时暂停背景视频
+        videoRef.current.pause();
+      } else {
+        // 当关闭模板时播放背景视频
+        videoRef.current.play().catch(error => {
+          console.log('Auto-play prevented:', error);
+        });
+      }
+    }
+  }, [currentView]);
+
   const handleViewImg = useCallback(() => {
     setCurrentView('image');
-    // 暂停背景视频
-    if (videoRef.current) {
-      videoRef.current.pause();
-    }
-    videoBtnRef.current?.pause();
-    videoBtnRef2.current?.pause();
   }, []);
 
-  const handleViewVideo = useCallback(() => {
-    setCurrentView('video');
-    // 暂停背景视频
-    if (videoRef.current) {
-      videoRef.current.pause();
-    }
-    videoBtnRef.current?.pause();
-    videoBtnRef2.current?.pause();
-  }, []);
+  // const handleViewVideo = useCallback(() => {
+  //   setCurrentView('video');
+  //   // 暂停背景视频
+  //   if (videoRef.current) {
+  //     videoRef.current.pause();
+  //   }
+  //   videoBtnRef.current?.pause();
+  //   videoBtnRef2.current?.pause();
+  // }, []);
 
   const handleClose = useCallback(() => {
     setCurrentView('none');
-    // 恢复背景视频播放
-    if (videoRef.current) {
-      videoRef.current.play().catch(e => console.log('Video play failed:', e));
-    }
-    videoBtnRef.current?.play()
-    videoBtnRef2.current?.play();
   }, []);
 
   // 处理触摸事件，防止冒泡
@@ -85,8 +86,8 @@ function App() {
     e.stopPropagation();
   }, []);
 
-  
-  
+
+
 
   return (
     <>
@@ -123,13 +124,19 @@ function App() {
           <source src="./img/bg/bg.mp4" type="video/mp4" />
           您的浏览器不支持视频背景。
         </video>
+        <div
+          onClick={handleViewImg}
+          className='btn1 common-button'
+          onTouchStart={(e) => e.stopPropagation()}
+        >
+        </div>
 
         <div
           className='app'
           onClick={handleBackgroundClick}
           onTouchStart={handleBackgroundClick}
         >
-          <div
+          {/* <div
             onClick={handleViewImg}
             className='btn'
             onTouchStart={(e) => e.stopPropagation()}
@@ -144,8 +151,8 @@ function App() {
             >
               <source src="./img/bg/btn1.mp4" type="video/mp4" />
             </video>
-          </div>
-          <div
+          </div> */}
+          {/* <div
             onClick={handleViewVideo}
             className='btn'
             onTouchStart={(e) => e.stopPropagation()}
@@ -160,9 +167,9 @@ function App() {
             >
               <source src="./img/bg/btn2.mp4" type="video/mp4" />
             </video>
-          </div>
+          </div> */}
 
-          {currentView !== 'none' && <ViewImg imgList={currentView === 'image'?['./img/protocol/ali_new.png']:['./img/protocol/jzhang_new.png']} />}
+          {currentView === 'image' && <ViewImg />}
           {/* {currentView === 'video'  && <ViewImg imgList={['./img/protocol/jzhang_new.png']} />} */}
 
           {currentView !== 'none' && (
