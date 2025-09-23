@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import './App.css'
 import ViewImg from './components/view-img';
 import ViewVideo from './components/view-video';
@@ -21,55 +21,69 @@ function App() {
   const [showViewVideo, setShowViewVideo] = useState(false);
 
   const [showNavbar, setShowNavbar] = useState(true);
-  const [clickTimer, setClickTimer] = useState<any>(null);
+  const navbarTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const videoRef = useRef<HTMLVideoElement>(null);
 
   // 点击空白区域显示导航栏
   const handleBackgroundClick = () => {
     // 清除之前的定时器
-    if (clickTimer) {
-      clearTimeout(clickTimer);
-      setClickTimer(null);
+    if (navbarTimerRef.current) {
+      clearTimeout(navbarTimerRef.current);
+      navbarTimerRef.current = null;
     }
 
     // 显示导航栏
     setShowNavbar(true);
 
     // 3秒后自动隐藏
-    const timer = setTimeout(() => {
+    navbarTimerRef.current = setTimeout(() => {
       setShowNavbar(false);
     }, 3000);
 
-    setClickTimer(timer);
+    navbarTimerRef.current = null;
   };
 
   // 组件卸载时清理定时器
   useEffect(() => {
     return () => {
-      if (clickTimer) clearTimeout(clickTimer);
+      if (navbarTimerRef.current) clearTimeout(navbarTimerRef.current);
     };
-  }, [clickTimer]);
+  }, []);
 
-  const handleViewImg = () => {
+  // 控制背景视频播放/暂停
+  useEffect(() => {
+    if (videoRef.current) {
+      if (showViewImg || showViewVideo) {
+        // 当显示模板时暂停背景视频
+        videoRef.current.pause();
+      } else {
+        // 当关闭模板时播放背景视频
+        videoRef.current.play().catch(error => {
+          console.log('Auto-play prevented:', error);
+        });
+      }
+    }
+  }, [showViewImg, showViewVideo]);
+
+  const handleClose = useCallback(() => {
+    setShowViewImg(false);
+    setShowViewVideo(false);
+  }, []);
+
+  const handleViewImg = useCallback(() => {
     setShowViewImg(true);
     setShowViewVideo(false);
-  };
+  }, []);
 
-  const handleViewVideo = () => {
+  const handleViewVideo = useCallback(() => {
     setShowViewVideo(true);
     setShowViewImg(false);
-  };
+  }, []);
 
-  const handleClose = () => {
-    setShowViewImg(false);
-    setShowViewVideo(false);
-  };
-
-  // 处理触摸事件，防止冒泡
-  const handleCloseTouch = (e: React.TouchEvent) => {
+  const handleCloseTouch = useCallback((e: React.TouchEvent) => {
     e.stopPropagation();
-  };
+  }, []);
 
   return (
     <>
@@ -106,13 +120,24 @@ function App() {
           <source src="./img/bg/bg.mp4" type="video/mp4" />
           您的浏览器不支持视频背景。
         </video>
-
+        <div
+          onClick={handleViewImg}
+          className='btn1 common-button'
+          onTouchStart={(e) => e.stopPropagation()}
+        >
+        </div>
+        <div
+          onClick={handleViewVideo}
+          className='btn2 common-button'
+          onTouchStart={(e) => e.stopPropagation()}
+        >
+        </div>
         <div
           className='app'
           onClick={handleBackgroundClick}
           onTouchStart={handleBackgroundClick}
         >
-          <div
+          {/* <div
             onClick={handleViewImg}
             className='btn'
             onTouchStart={(e) => e.stopPropagation()}
@@ -141,7 +166,7 @@ function App() {
             >
               <source src="./img/bg/btn2.mp4" type="video/mp4" />
             </video>
-          </div>
+          </div> */}
 
           {showViewImg && <ViewImg />}
           {showViewVideo && <ViewVideo onClose={handleClose} />}
