@@ -5,6 +5,8 @@ const ViewVideo = ({ url, onClose }: { url: string, onClose: () => void }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   // const [isFullscreen, setIsFullscreen] = useState(false);
 
+  const timer = useRef<any>(null);
+
   useEffect(() => {
     const video = videoRef.current;
     if (video) {
@@ -29,9 +31,26 @@ const ViewVideo = ({ url, onClose }: { url: string, onClose: () => void }) => {
           console.log("Auto-play prevented:", error);
         }
       };
-      
+
       playVideo();
-      
+
+      // 监听视频播放结束事件
+      const handleVideoEnd = () => {
+        // 延迟3秒后执行关闭操作
+        timer.current = setTimeout(() => {
+          onClose();
+        }, 1000);
+      };
+
+      video.addEventListener('ended', handleVideoEnd);
+
+      // 当组件卸载时暂停视频并清理事件监听器
+      return () => {
+        video.pause();
+        video.removeEventListener('ended', handleVideoEnd);
+        timer.current && clearTimeout(timer.current);
+      };
+
       // // 监听全屏变化事件
       // const handleFullscreenChange = () => {
       //   const fullscreenElement = 
@@ -39,20 +58,20 @@ const ViewVideo = ({ url, onClose }: { url: string, onClose: () => void }) => {
       //     (document as any).webkitFullscreenElement ||
       //     (document as any).mozFullScreenElement ||
       //     (document as any).msFullscreenElement;
-        
+
       //   setIsFullscreen(!!fullscreenElement);
-        
+
       //   // 如果退出全屏，则通知App关闭视频界面
       //   if (!fullscreenElement) {
       //     onClose();
       //   }
       // };
-      
+
       // document.addEventListener('fullscreenchange', handleFullscreenChange);
       // document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
       // document.addEventListener('mozfullscreenchange', handleFullscreenChange);
       // document.addEventListener('MSFullscreenChange', handleFullscreenChange);
-      
+
       // // 当组件卸载时暂停视频
       // return () => {
       //   video.pause();
@@ -88,13 +107,13 @@ const ViewVideo = ({ url, onClose }: { url: string, onClose: () => void }) => {
   return (
     <div className="mask">
       <div className="video-wrapper">
-        <div 
+        <div
           className="video-container"
           onTouchStart={handleVideoContainerTouch}
         >
-          <video 
+          <video
             ref={videoRef}
-            src={url} 
+            src={url}
             className="video-player"
             controls={false}
             autoPlay

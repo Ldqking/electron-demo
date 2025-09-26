@@ -37,8 +37,8 @@
   position: relative;
   z-index: -1;
   width: calc(100% - 3vw);
-  height: 84%;
-  padding: 2.5vh 1vw;
+  height: 80%;
+  padding: 4vh 1vw;
   font-size: 1vw;
   color: white;
   border: 1px dashed rgba(255, 222, 152, 0.7);
@@ -49,6 +49,10 @@
   line-height: 3vh;
   white-space: break-spaces;
   text-indent: 2em;
+  /* 换行缩进 */
+  word-spacing: 0.1em;
+  /* 文字间距 */
+  letter-spacing: 0.1em;
 }
 
 .martyr-btns {

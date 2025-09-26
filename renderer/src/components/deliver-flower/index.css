@@ -5,8 +5,35 @@
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
+	flex-direction: column;
   align-items: center;
   z-index: 9999;
+}
+.flower-text {
+	color: white;
+	font-size: 1.5vw;
+	display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flower-sign {
+	margin-right: 0.2vw;
+	font-size: 1.8vw;
+	text-shadow: 
+    0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 15px #fff,
+    0 0 20px #fff;
+}
+.flower-num {
+	margin: 0.2vw;
+	font-size: 2.2vw;
+	/* 文本阴影 */
+	text-shadow: 
+    0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 15px #fff,
+    0 0 20px #fff;
 }
 .deliver-flower img {
   width: 40%;

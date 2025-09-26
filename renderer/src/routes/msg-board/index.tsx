@@ -1,20 +1,21 @@
 import './index.css';
 import '../App.css'
 import HeaderBar from '../../components/header-bar';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Back from '../../components/back';
 import MsgList from '../../components/msg-list';
 const MsgBoard = () => {
   const headerBarRef = useRef<any>(null);
+  const [showBack, setShowBack] = useState<boolean>(true);
   // 点击空白区域显示导航栏
   const handleBackgroundClick = () => {
     headerBarRef.current?.handleBackgroundClick();
   };
   
   useEffect(() => { 
-    let msgList = localStorage.getItem('msgList');
+    let msgList = localStorage.getItem('msgsList');
     if(!msgList) {
-      localStorage.setItem('msgList', JSON.stringify([]));
+      localStorage.setItem('msgsList', JSON.stringify([]));
     }
   }, []);
 
@@ -43,8 +44,8 @@ const MsgBoard = () => {
           onClick={handleBackgroundClick}
           onTouchStart={handleBackgroundClick}
         > 
-          <MsgList />
-          <Back />
+          <MsgList handleBack={(show) => setShowBack(show)} />
+          {showBack && <Back />}
         </div>
       </div>
     </>

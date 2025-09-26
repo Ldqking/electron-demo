@@ -107,16 +107,25 @@ textarea::placeholder {
 .msg-list-container {
   width: 100%;
   /* height: 60%; */
-  margin-top: 5%;
+  margin-top: 10%;
   display: flex;
-  flex-wrap: wrap;
-  gap: 2.6%
+  /* flex-wrap: wrap; */
+  max-height: 49.7%;
+  overflow-y: auto;
+}
+
+.innerContainer{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4vh;
 }
 
 .msg-list-item {
   width: 31%;
   height: 12vh;
-  margin-top: 4vh;
+  margin-bottom: 1.5vh;
+  /* margin-top: 4vh; */
   border: 0.2vw solid rgba(180, 140, 120, 1);
   box-shadow:
     0 4px 8px rgba(0, 0, 0, 0.3),
@@ -124,6 +133,8 @@ textarea::placeholder {
 }
 
 .msg-item-content {
+  /* flex: 1; */
+  /* text-align: center; */
   width: calc(100% - 2.2vw);
   height: calc(100% - 2vh - 0.2vw);
   margin: 0.1vw;
@@ -134,4 +145,17 @@ textarea::placeholder {
   word-wrap: break-word;
   word-break: break-word;
   white-space: pre-wrap;
+  display: flex;
+  align-items: center
 }
+
+.row {
+  display: flex;
+  /* width: calc(100% - 0.2vw);
+  padding: 0 0.1vw; */
+  gap:2.6%
+  /* justify-content: space-between; */
+}
+/* .row:last-child {
+  margin-bottom: 0.5vh;
+} */

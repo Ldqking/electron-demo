@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import './index.css';
 import '../App.css';
 import HeaderBar from '../../components/header-bar';
-import { MARTYR_LIST } from '../../lib/enum';
+import { MARTYR_LIST_NEW } from '../../lib/enum';
 import { useNavigate } from 'react-router-dom';
 import Back from '../../components/back';
 const Martyr = () => {
@@ -38,7 +38,7 @@ const Martyr = () => {
           onClick={handleBackgroundClick}
           onTouchStart={handleBackgroundClick}
         >
-          {MARTYR_LIST.map((item, _) => (
+          {MARTYR_LIST_NEW.map((item, _) => (
             <div
               onClick={() => navigate(`/martyr/${item.id}`)}
               className='martyr-btn'

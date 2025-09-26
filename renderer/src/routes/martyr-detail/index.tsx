@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import './index.css'
 import '../App.css'
 import { useEffect, useRef, useState } from 'react';
-import { MARTYR_LIST } from '../../lib/enum';
+import { MARTYR_LIST_NEW } from '../../lib/enum';
 import HeaderBar from '../../components/header-bar';
 import Back from '../../components/back';
 import DeliverFlower from '../../components/deliver-flower';
@@ -37,7 +37,7 @@ const MartyrDetail = () => {
 
   useEffect(() => {
     // 根据路由参数id查找对应的烈士信息
-    const selectedMartyr = MARTYR_LIST.find(item => item.id === Number(id)) || null;
+    const selectedMartyr = MARTYR_LIST_NEW.find(item => item.id === Number(id)) || null;
     setMartyr(selectedMartyr);
   }, [id]);
 
@@ -56,6 +56,12 @@ const MartyrDetail = () => {
       timer.current && clearTimeout(timer.current);
     };
   }, [showFlower]);
+
+  const handleFlower = () => {
+    setShowFlower(true);
+    //计数，当前烈士打开一次+1
+    localStorage.setItem(`${martyr?.id}`, (Number(localStorage.getItem(`${martyr?.id}`) || 0) + 1).toString());
+  };
 
   if (!martyr) {
     return <div>烈士信息未找到</div>;
@@ -115,12 +121,10 @@ const MartyrDetail = () => {
               className=""
               src="./img/hua-btn.png"
               alt="送花"
-              onClick={() => {
-                setShowFlower(true);
-              }}
+              onClick={() => handleFlower()}
             />
           </div>
-          <DeliverFlower show={showFlower} />
+          <DeliverFlower show={showFlower} id={martyr.id}/>
           <QuestionList list={martyr.questions} show={showQuestion} onClose={() => setShowQuestion(false)} />
           {!showQuestion && <Back />}
         </div>

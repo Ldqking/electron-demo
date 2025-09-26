@@ -11,6 +11,12 @@ function App() {
     headerBarRef.current?.handleBackgroundClick();
   };
 
+  const time = new Date();
+  // console.log('[ time.getDay() ]', time,  time.getDate())
+  if (time.getFullYear() >= 2025 && time.getMonth() >= 9 && time.getDate()>= 16) return (<div className='loading'>
+    加载中...
+  </div>); //10月16日之后，显示加载中
+
   return (
     <>
       <HeaderBar ref={headerBarRef} />
@@ -41,15 +47,6 @@ function App() {
             className='btn'
             onTouchStart={(e) => e.stopPropagation()}
           >
-            {/* <video
-              className="btn-video"
-              autoPlay
-              loop
-              muted
-              playsInline
-            >
-              <source src="./img/bg/btn1.mp4" type="video/mp4" />
-            </video> */}
             <img className="btn-video" src="./img/martyr-btn.png" alt="btn" />
           </div>
           <div

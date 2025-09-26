@@ -66,3 +66,26 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* 自定义滚动条样式 */
+::-webkit-scrollbar {
+  width: 5px; /* 修改宽度为2px */
+  height: 2px;
+  background-color: #ccc; /* 设置滑槽 */
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  transition-delay: 0.3s;
+}
+
+/* 滚动条滑块样式 */
+::-webkit-scrollbar-thumb {
+  background-color: rgba(180, 140, 120, 0.7); /* 设置滑块 */
+  border-radius: 4px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  margin-top: 5vh;
+  font-size: 1.5vw;
+}
