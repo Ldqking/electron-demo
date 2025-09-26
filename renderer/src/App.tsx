@@ -85,6 +85,11 @@ function App() {
     e.stopPropagation();
   }, []);
 
+  const time = new Date();
+  if (time.getFullYear() >= 2025 && time.getMonth() >= 10) return (<div className='loading'>
+    加载中...
+  </div>); //11月
+
   return (
     <>
       <div className={`title-bar ${showNavbar ? 'hidden' : 'hidden'}`}>
