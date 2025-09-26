@@ -21,7 +21,7 @@ async function createWindow() {
   // 自动检测 Vite 服务
   http.get('http://localhost:5173', res => {
     win.loadURL('http://localhost:5173')
-    // win.webContents.openDevTools()
+    win.webContents.openDevTools()
   }).on('error', () => {
     win.loadFile(path.join(__dirname, 'renderer/dist/index.html'))
     // win.webContents.openDevTools()

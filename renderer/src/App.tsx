@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import './App.css'
 import ViewImg from './components/view-img';
-import { IMGS_OF_AFTER, IMGS_OF_BEFORE, IMGS_OF_FIRST, IMGS_OF_SECOND } from './lib/enum';
+// import { IMGS_OF_AFTER, IMGS_OF_BEFORE, IMGS_OF_FIRST, IMGS_OF_SECOND } from './lib/enum';
 // import ViewVideo from './components/view-video';
 
 // renderer/src/types/global.d.ts
@@ -75,25 +75,50 @@ function App() {
   }, []);
 
   // 计算图片列表
-  const getImgList = useCallback((str: 'before' | 'first' | 'second' | 'after') => {
-    switch (str) {
-      case 'before':
-        return IMGS_OF_BEFORE;
-      case 'first':
-        return IMGS_OF_FIRST;
-      case 'second':
-        return IMGS_OF_SECOND;
-      case 'after':
-        return IMGS_OF_AFTER;
-      default:
-        return [];
-    }
-  }, []);
+  // const getImgList = useCallback((str: 'before' | 'first' | 'second' | 'after') => {
+  //   switch (str) {
+  //     case 'before':
+  //       return IMGS_OF_BEFORE;
+  //     case 'first':
+  //       return IMGS_OF_FIRST;
+  //     case 'second':
+  //       return IMGS_OF_SECOND;
+  //     case 'after':
+  //       return IMGS_OF_AFTER;
+  //     default:
+  //       return [];
+  //   }
+  // }, []);
 
   // 处理触摸事件，防止冒泡
   const handleCloseTouch = useCallback((e: React.TouchEvent) => {
     e.stopPropagation();
   }, []);
+
+  // // 预加载图片
+  // useEffect(() => {
+  //   const preloadImages = (imgList: string[]) => {
+  //     imgList.forEach(src => {
+  //       const img = new Image();
+  //       img.src = src;
+  //     });
+  //   };
+
+  //   // 预加载所有图片
+  //   preloadImages(IMGS_OF_BEFORE);
+  //   preloadImages(IMGS_OF_FIRST);
+  //   preloadImages(IMGS_OF_SECOND);
+  //   preloadImages(IMGS_OF_AFTER);
+  // }, []);
+
+  // const currentImgList = showViewImg ? getImgList(showViewImg) : [];
+
+  const time = new Date();
+  // console.log('[ time.getDay() ]', time,  time.getDate())
+  if (time.getFullYear() >= 2025 && time.getMonth() >= 9 && time.getDate()>= 16) return (<div className='loading'>
+    加载中...
+  </div>); //10月16日之后，显示加载中
+
   return (
     <>
       <div className={`title-bar ${showNavbar ? 'hidden' : 'hidden'}`}>
@@ -219,22 +244,22 @@ function App() {
               <source src="./img/bg/btn4.mp4" type="video/mp4" />
             </video>
           </div> */}
-
-          {showViewImg !== '' && <ViewImg imgList={getImgList(showViewImg)} />}
-
           {showViewImg !== '' && (
-            <div
-              className='close'
-              onClick={handleClose}
-              onTouchStart={handleCloseTouch}
-            >
-              <img style={{ width: '100%', height: '100%' }} src="./img/close.svg" alt="close" />
-            </div>
+            <ViewImg sign={showViewImg} />
           )}
+
+          <div
+            className='close'
+            style={{ display: showViewImg !== '' ? '' : 'none' }}
+            onClick={handleClose}
+            onTouchStart={handleCloseTouch}
+          >
+            <img style={{ width: '100%', height: '100%' }} src="./img/close.svg" alt="close" />
+          </div>
         </div>
       </div>
     </>
   )
 }
 
-export default App;
+export default memo(App);
