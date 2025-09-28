@@ -244,9 +244,10 @@ function App() {
               <source src="./img/bg/btn4.mp4" type="video/mp4" />
             </video>
           </div> */}
-          {showViewImg !== '' && (
+          {/* {showViewImg !== '' && (
             <ViewImg sign={showViewImg} />
-          )}
+          )} */}
+          <ViewImg sign={showViewImg} />
 
           <div
             className='close'

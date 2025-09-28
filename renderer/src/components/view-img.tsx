@@ -1,5 +1,5 @@
 // renderer/src/components/view-img.tsx
-import { useState, memo, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { IMGS_OF_BEFORE, IMGS_OF_FIRST, IMGS_OF_SECOND, IMGS_OF_AFTER } from "../lib/enum";
 
 // const IMGS: string[] = IMGS_OF_BEFORE;
@@ -11,11 +11,11 @@ const BASE_IMGS = {
 }
 
 interface ViewImgProps {
-  sign: "before" | "first" | "second" | "after";
+  sign: "before" | "first" | "second" | "after" | "";
 }
 
 const ViewImg = ({ sign }: ViewImgProps) => {
-  let IMGS = BASE_IMGS[sign];
+  let IMGS =  sign ? BASE_IMGS[sign] ?? [] : [];
   const [imgIndex, setImgIndex] = useState(0);
 
   // 使用 useCallback 优化事件处理函数
@@ -52,12 +52,18 @@ const ViewImg = ({ sign }: ViewImgProps) => {
     preloadImages();
   }, [preloadImages]);
 
+  useEffect(
+    () => { 
+      setImgIndex(0)
+    },[sign]
+  )
+
   // 检查按钮状态
   const isPrevDisabled = imgIndex === 0;
   const isNextDisabled = imgIndex === IMGS.length - 1;
 
   return (
-    <div className="mask">
+    <div className="mask" style={{display: sign !==''? 'flex': 'none'}}>
       <div className="image-container">
         <img 
           src={IMGS[imgIndex]} 
@@ -187,4 +193,4 @@ const ViewImg = ({ sign }: ViewImgProps) => {
   // );
 };
 
-export default memo(ViewImg);
+export default ViewImg;

@@ -148,9 +148,11 @@
 }
 
 .preview-image {
-  width: 100vw;
-  max-width: 100vw;
-  max-height: 100vh;
+  /* width: 100vw; */
+  height: 100vh;
+  width: auto;
+  /* max-width: 100vw;
+  max-height: 100vh; */
   object-fit: contain;
   transform: translateZ(0);
   will-change: transform;
