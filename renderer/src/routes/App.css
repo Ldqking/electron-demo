@@ -59,7 +59,7 @@
   pointer-events: all;
   /* 添加过渡效果 */
   transition: all 0.2s ease-in-out;
-   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* 仅在支持 hover 的设备上应用 hover 效果 */
@@ -210,7 +210,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 9; 
+  z-index: 9;
 }
 
 .title-bar-title {
@@ -304,17 +304,19 @@
 }
 
 .btn1 {
-  top: 36%;
-  left: 13%;
-  width: 33.2%;
-  height: 29%;
+  bottom: 13%;
+  left: 5%;
+  width: 44.5%;
+  height: 38.5%;
 }
+
 .btn2 {
-  top: 36%;
-  right: 13%;
-  width: 33.2%;
-  height: 29%;
+  bottom: 13%;
+  right: 5%;
+  width: 44.5%;
+  height: 38.5%;
 }
+
 .btn3 {
   bottom: 4%;
   right: 31.5%;

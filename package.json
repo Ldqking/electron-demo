@@ -30,6 +30,7 @@
     },
     "asar": true,
     "win": {
+      "sign": false,
       "target": [
         {
           "target": "nsis",

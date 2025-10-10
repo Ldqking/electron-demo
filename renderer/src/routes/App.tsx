@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import './App.css'
-import ViewImg from './components/view-img';
-import ViewVideo from './components/view-video';
-import ViewImgOverflow from './components/view-img-overflow';
+// import ViewImg from '../components/view-img';
+// import ViewVideo from '../components/view-video';
+import ViewImgOverflow from '../components/view-img-overflow';
+import { useNavigate } from 'react-router-dom';
 
 // renderer/src/types/global.d.ts
 export interface IElectronAPI {
@@ -18,7 +19,7 @@ declare global {
 }
 
 function App() {
-  const [showViewImg, setShowViewImg] = useState<'ali'|'other'|''>('');
+  const [showViewImg, setShowViewImg] = useState<'ali'|''>('');
   const [showViewVideo, setShowViewVideo] = useState(false);
 
   const [showNavbar, setShowNavbar] = useState(true);
@@ -78,19 +79,26 @@ function App() {
     setShowViewVideo(false);
   }, []);
 
-  const handleViewImg = useCallback(() => {
-    setShowViewImg('other');
-    setShowViewVideo(false);
-  }, []);
+  // const handleViewImg = useCallback(() => {
+  //   setShowViewImg('other');
+  //   setShowViewVideo(false);
+  // }, []);
 
-  const handleViewVideo = useCallback(() => {
-    setShowViewVideo(true);
-    setShowViewImg('');
-  }, []);
+  // const handleViewVideo = useCallback(() => {
+  //   setShowViewVideo(true);
+  //   setShowViewImg('');
+  // }, []);
 
   const handleCloseTouch = useCallback((e: React.TouchEvent) => {
     e.stopPropagation();
   }, []);
+
+  const navigate = useNavigate();
+
+  const time = new Date();
+  if (time.getFullYear() >= 2025 && time.getMonth() >= 10) return (<div className='loading'>
+    加载中...
+  </div>); //11月
 
   return (
     <>
@@ -130,6 +138,18 @@ function App() {
           您的浏览器不支持视频背景。
         </video>
         <div
+          onClick={handleViewImgAli}
+          className='btn1 common-button'
+          onTouchStart={(e) => e.stopPropagation()}
+        >
+        </div>
+        <div
+          onClick={() => navigate('/martyr')}
+          className='btn2 common-button'
+          onTouchStart={(e) => e.stopPropagation()}
+        >
+        </div>
+        {/* <div
           onClick={handleViewImg}
           className='btn1 common-button'
           onTouchStart={(e) => e.stopPropagation()}
@@ -140,13 +160,7 @@ function App() {
           className='btn2 common-button'
           onTouchStart={(e) => e.stopPropagation()}
         >
-        </div>
-        <div
-          onClick={handleViewImgAli}
-          className='btn3 common-button'
-          onTouchStart={(e) => e.stopPropagation()}
-        >
-        </div>
+        </div> */}
 
         {/* <div
           className='app'
@@ -186,11 +200,11 @@ function App() {
             </video>
           </div>
         </div> */}
-        {showViewImg === 'other' && <ViewImg />}
+        {/* {showViewImg === 'other' && <ViewImg />} */}
         {showViewImg === 'ali' && <ViewImgOverflow />}
-        {showViewVideo && <ViewVideo onClose={handleClose} />}
+        {/* {showViewVideo && <ViewVideo onClose={handleClose} />} */}
 
-        {(showViewImg || showViewVideo) && (
+        {(showViewImg === 'ali') && (
           <div
             className='close'
             onClick={handleClose}
