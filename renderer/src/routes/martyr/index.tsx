@@ -31,7 +31,7 @@ const Martyr = () => {
         </video> */}
         <img
           className="video-background"
-          src="./img/bg/martyr-bg.png" alt="martyr-bg" />
+          src="./img/bg/martyr-bg.webp" alt="martyr-bg" />
 
         <div
           className='martyr-app'

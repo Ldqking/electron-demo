@@ -85,7 +85,7 @@ const MartyrDetail = () => {
         </video> */}
         <img
           className="video-background"
-          src="./img/bg/martyr-bg.png" alt="martyr-bg" />
+          src="./img/bg/martyr-bg.webp" alt="martyr-bg" />
 
         <div
           className='martyr-detail-app'
@@ -99,7 +99,7 @@ const MartyrDetail = () => {
               alt={martyr.name}
             />
             <div className='martyr-detail-info'>
-              <div className='info-title' style={{ background: `url(./img/info-title.png)`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+              <div className='info-title' style={{ background: `url(./img/info-title.webp)`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                 <span className='info-title-line'>|</span>
                 <span>{martyr.name}</span>
               </div>
@@ -111,7 +111,7 @@ const MartyrDetail = () => {
           <div className='martyr-btns'>
             <img
               className=""
-              src="./img/question-btn.png"
+              src="./img/question-btn.webp"
               alt="问题词条"
               onClick={() => {
                 setShowQuestion(true);
@@ -119,7 +119,7 @@ const MartyrDetail = () => {
             />
             <img
               className=""
-              src="./img/hua-btn.png"
+              src="./img/hua-btn.webp"
               alt="送花"
               onClick={() => handleFlower()}
             />

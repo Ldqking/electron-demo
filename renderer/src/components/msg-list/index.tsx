@@ -232,7 +232,7 @@ const MsgList = ({ handleBack }: { handleBack: (showAdd: boolean) => void }) => 
         ))} */}
       </div>
       <div className='msg-add' onClick={() => setShowAdd(true)}>
-        <img src="./img/msg-btn.png" alt="书写留言" />
+        <img src="./img/msg-btn.webp" alt="书写留言" />
       </div>
       {showAdd && (
         <div className='msg-add-box'>
@@ -254,7 +254,7 @@ const MsgList = ({ handleBack }: { handleBack: (showAdd: boolean) => void }) => 
             </div>
           </div>
           <div className='msg-box-send' onClick={() => handleSendMsg()}>
-            <img src="./img/send-btn.png" alt="发送" />
+            <img src="./img/send-btn.webp" alt="发送" />
           </div>
           <div className="close" onClick={() => setShowAdd(false)}>
             <img src="./img/close.svg" alt="关闭" />

@@ -13,7 +13,7 @@ function App() {
 
   const time = new Date();
   // console.log('[ time.getDay() ]', time,  time.getDate())
-  if (time.getFullYear() >= 2025 && time.getMonth() >= 9 && time.getDate()>= 16) return (<div className='loading'>
+  if (time.getFullYear() >= 2025 && time.getMonth() >= 10 && time.getDate()>= 16) return (<div className='loading'>
     加载中...
   </div>); //10月16日之后，显示加载中
 
@@ -35,7 +35,7 @@ function App() {
         </video> */}
         <img
           className="video-background"
-          src="./img/bg/home-bg.png" alt="home-bg" />
+          src="./img/bg/home-bg.webp" alt="home-bg" />
 
         <div
           className='app'
@@ -47,7 +47,7 @@ function App() {
             className='btn'
             onTouchStart={(e) => e.stopPropagation()}
           >
-            <img className="btn-video" src="./img/martyr-btn.png" alt="btn" />
+            <img className="btn-video" src="./img/martyr-btn.webp" alt="btn" />
           </div>
           <div
             onClick={() => navigate('/msg-board')}
@@ -63,7 +63,7 @@ function App() {
             >
               <source src="./img/bg/btn2.mp4" type="video/mp4" />
             </video> */}
-            <img className="btn-video" src="./img/msg-board-btn.png" alt="btn" />
+            <img className="btn-video" src="./img/msg-board-btn.webp" alt="btn" />
           </div>
         </div>
       </div>

@@ -37,7 +37,7 @@ const MsgBoard = () => {
         </video> */}
         <img
           className="video-background"
-          src="./img/bg/msg-board-bg.png" alt="msg-board-bg" />
+          src="./img/bg/msg-board-bg.webp" alt="msg-board-bg" />
 
         <div
           className='app'

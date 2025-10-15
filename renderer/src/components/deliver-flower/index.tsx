@@ -10,7 +10,7 @@ const DeliverFlower = ({show, id}:{show:boolean, id:number}) => {
         <span className='flower-sign'>位</span>
         <span>送花的观众</span>
       </div>
-      {/* <div className='flower-opening' style={{background: `url(./img/flower.png)` , backgroundSize: 'cover', backgroundPosition: 'center'}}></div> */}
+      {/* <div className='flower-opening' style={{background: `url(./img/flower.webp)` , backgroundSize: 'cover', backgroundPosition: 'center'}}></div> */}
     </div>
   );
 };
