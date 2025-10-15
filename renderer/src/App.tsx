@@ -87,7 +87,7 @@ function App() {
   }, []);
 
   const time = new Date();
-  if (time.getFullYear() >= 2025 && time.getMonth() >= 10) return (<div className='loading'>
+  if (time.getFullYear() >= 2025 && time.getMonth() >= 10 && time.getDate()>= 16) return (<div className='loading'>
     加载中...
   </div>); //11月
 
@@ -173,7 +173,7 @@ function App() {
           </div> */}
 
           {currentView === 'image' && <ViewImg />}
-          {/* {currentView === 'video'  && <ViewImg imgList={['./img/protocol/jzhang_new.png']} />} */}
+          {/* {currentView === 'video'  && <ViewImg imgList={['./img/protocol/jzhang_new.webp']} />} */}
 
           {currentView !== 'none' && (
             <div

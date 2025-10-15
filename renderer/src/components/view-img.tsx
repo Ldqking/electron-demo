@@ -1,6 +1,6 @@
 import { memo } from "react";
 
-const ViewImg = ({imgList = ['./img/protocol/jzhang_new.png']}: {imgList?: string[]}) => {
+const ViewImg = ({imgList = ['./img/protocol/jzhang_new.webp']}: {imgList?: string[]}) => {
 
   // const [imgIndex, setImgIndex] = useState(0);
 
