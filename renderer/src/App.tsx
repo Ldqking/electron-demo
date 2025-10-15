@@ -115,9 +115,9 @@ function App() {
 
   const time = new Date();
   // console.log('[ time.getDay() ]', time,  time.getDate())
-  if (time.getFullYear() >= 2025 && time.getMonth() >= 9 && time.getDate()>= 16) return (<div className='loading'>
+  if (time.getFullYear() >= 2025 && time.getMonth() >= 10 && time.getDate()>= 16) return (<div className='loading'>
     加载中...
-  </div>); //10月16日之后，显示加载中
+  </div>); //11月16日之后，显示加载中
 
   return (
     <>
