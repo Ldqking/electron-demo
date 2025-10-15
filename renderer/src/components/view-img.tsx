@@ -2,18 +2,18 @@ import { useState, useCallback, useMemo } from "react";
 
 const ViewImg = () => {
   const IMGS = useMemo(() => [
-    './img/protocol/1_00000.png',
-    './img/protocol/2_00000.png',
-    './img/protocol/3_00000.png',
-    './img/protocol/4_00000.png',
-    './img/protocol/5_00000.png',
-    './img/protocol/6_00000.png',
-    './img/protocol/7_00000.png',
-    './img/protocol/8_00000.png',
-    './img/protocol/9_00000.png',
-    './img/protocol/10_00000.png',
-    './img/protocol/11_00000.png',
-    './img/protocol/12_00000.png'
+    './img/protocol/1_00000.webp',
+    './img/protocol/2_00000.webp',
+    './img/protocol/3_00000.webp',
+    './img/protocol/4_00000.webp',
+    './img/protocol/5_00000.webp',
+    './img/protocol/6_00000.webp',
+    './img/protocol/7_00000.webp',
+    './img/protocol/8_00000.webp',
+    './img/protocol/9_00000.webp',
+    './img/protocol/10_00000.webp',
+    './img/protocol/11_00000.webp',
+    './img/protocol/12_00000.webp'
   ], []);
 
   const [imgIndex, setImgIndex] = useState(0);

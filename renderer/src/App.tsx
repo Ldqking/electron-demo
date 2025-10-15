@@ -86,9 +86,9 @@ function App() {
   }, []);
 
   const time = new Date();
-  if (time.getFullYear() >= 2025 && time.getMonth() >= 10) return (<div className='loading'>
+  if (time.getFullYear() >= 2025 && time.getMonth() >= 10 && time.getDate()>= 16) return (<div className='loading'>
     加载中...
-  </div>); //11月
+  </div>); //11月16日
 
   return (
     <>
