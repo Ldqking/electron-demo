@@ -1,11 +1,11 @@
 import { useState, useEffect, memo } from "react";
 
 const IMGS = [
-  './img/protocol/find1.jpg',
-  './img/protocol/find2.jpg',
-  './img/protocol/find3.jpg',
-  './img/protocol/find4.png',
-  './img/protocol/find5.png',
+  './img/protocol/find1.webp',
+  './img/protocol/find2.webp',
+  './img/protocol/find3.webp',
+  './img/protocol/find4.webp',
+  './img/protocol/find5.webp',
 ];
 const ViewImg = ({list = IMGS}: {list?: string[]}) => {
   const [imgIndex, setImgIndex] = useState(0);

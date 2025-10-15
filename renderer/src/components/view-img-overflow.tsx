@@ -1,7 +1,7 @@
 import { memo } from "react";
 import "./styles/view-img-overflow.css"
 
-const ViewImgOverflow = ({imgUrl = './ali.png'}: {imgUrl?: string}) => {
+const ViewImgOverflow = ({imgUrl = './ali.webp'}: {imgUrl?: string}) => {
 
   return (
     <div className="mask-new">
