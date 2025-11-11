@@ -95,10 +95,10 @@ function App() {
 
   const navigate = useNavigate();
 
-  const time = new Date();
-  if (time.getFullYear() >= 2025 && time.getMonth() >= 10 && time.getDate()>= 16) return (<div className='loading'>
-    加载中...
-  </div>); //11月15日
+  // const time = new Date();
+  // if (time.getFullYear() >= 2025 && time.getMonth() >= 11 && time.getDate()>= 16) return (<div className='loading'>
+  //   加载中...
+  // </div>); //12月15日
 
   return (
     <>
