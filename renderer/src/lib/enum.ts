@@ -221,6 +221,45 @@ export const MARTYR_LIST_NEW = [
     ]
   },
   {
+    id: 4,
+    name: '罗光燮',
+    btnUrl: './img/martyr-lgy.webp',
+    img: './img/lgy.webp',
+    desc: '罗光燮（1941-1962），四川乐至人，中共党员。\n1960年8月应征参加中国人民解放军，为新疆军区某部工兵连战士。曾被评为“技术能手”。\n1962年10月18日，在中印边境自卫还击战中，在配合步兵连消灭敌人据点的战斗中，用身躯滚雷，为部队开辟前进的道路，英勇牺牲。部队党委根据烈士遗愿追认他为中国共产党正式党员，追记一等功。\n1963年3月，被中华人民共和国国防部授予“战斗英雄”称号。',
+    questions: [
+      {
+        id: 41,
+        question: '您为什么在战斗中毫不犹豫地用身体滚向雷区？',
+        answer: './img/question/lgy/1.mp4'
+      },
+      {
+        id: 42,
+        question: '在做出那个决定时，您心里在想什么？',
+        answer: './img/question/lgy/2.mp4'
+      },
+      {
+        id: 43,
+        question: '您认为什么是真正的勇气？',
+        answer: './img/question/lgy/3.mp4'
+      },
+      {
+        id: 44,
+        question: '您想对今天的年轻军人说些什么？',
+        answer: './img/question/lgy/4.mp4'
+      },
+      {
+        id: 45,
+        question: '您如何看待"英雄"这个称号？',
+        answer: './img/question/lgy/5.mp4'
+      },
+      {
+        id: 46,
+        question: '您有什么想对我们说的吗？',
+        answer: './img/question/lgy/7.mp4'
+      }
+    ]
+  },
+  {
     id: 2,
     name: '孔繁森',
     btnUrl: './img/martyr-kfs.webp',
@@ -298,43 +337,4 @@ export const MARTYR_LIST_NEW = [
       },
     ]
   },
-  {
-    id: 4,
-    name: '罗光燮',
-    btnUrl: './img/martyr-lgy.webp',
-    img: './img/lgy.webp',
-    desc: '罗光燮（1941-1962），四川乐至人，中共党员。\n1960年8月应征参加中国人民解放军，为新疆军区某部工兵连战士。曾被评为“技术能手”。\n1962年10月18日，在中印边境自卫还击战中，在配合步兵连消灭敌人据点的战斗中，用身躯滚雷，为部队开辟前进的道路，英勇牺牲。部队党委根据烈士遗愿追认他为中国共产党正式党员，追记一等功。\n1963年3月，被中华人民共和国国防部授予“战斗英雄”称号。',
-    questions: [
-      {
-        id: 41,
-        question: '您为什么在战斗中毫不犹豫地用身体滚向雷区？',
-        answer: './img/question/lgy/1.mp4'
-      },
-      {
-        id: 42,
-        question: '在做出那个决定时，您心里在想什么？',
-        answer: './img/question/lgy/2.mp4'
-      },
-      {
-        id: 43,
-        question: '您认为什么是真正的勇气？',
-        answer: './img/question/lgy/3.mp4'
-      },
-      {
-        id: 44,
-        question: '您想对今天的年轻军人说些什么？',
-        answer: './img/question/lgy/4.mp4'
-      },
-      {
-        id: 45,
-        question: '您如何看待"英雄"这个称号？',
-        answer: './img/question/lgy/5.mp4'
-      },
-      {
-        id: 46,
-        question: '您有什么想对我们说的吗？',
-        answer: './img/question/lgy/7.mp4'
-      }
-    ]
-  }
 ]
